@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Top-Github</string>
+    <string name="empty_list">No Results Found</string>
+    <string name="pull_repository_hint">Enter github Username/RepoName</string>
+    <string name="submit">Submit</string>
+    <string name="pull_request">Pull Request</string>
+    <string name="error_pull_repository">Invalid Path! Please Enter valid path in format Username/RepositoryName</string>
+    <string name="state">State : %1s </string>
+    <string name="created_by">Created By : %1s </string>
+    <string name="created_at">Created At : %1s </string>
+    <string name="updated_date">Last Updated On : %1s </string>
+</resources>

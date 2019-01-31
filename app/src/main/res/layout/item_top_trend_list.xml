@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="trendItem"
+            type="com.target.assignment.features.trendlist.model.TrendResponse" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/min_item_height"
+        android:padding="@dimen/dp_16">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/avtarIV"
+            android:layout_width="@dimen/thumbnail_image_height"
+            android:layout_height="@dimen/thumbnail_image_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nameTV"
+            style="@style/ItemText.Header"
+            android:text="@{trendItem.name}"
+            app:layout_constraintStart_toEndOf="@+id/avtarIV"
+            app:layout_constraintTop_toTopOf="@+id/avtarIV"
+            android:layout_marginStart="@dimen/dp_16"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/ItemText.SubHeader"
+            android:text="@{trendItem.username}"
+            app:layout_constraintStart_toStartOf="@+id/nameTV"
+            app:layout_constraintTop_toBottomOf="@+id/nameTV" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
