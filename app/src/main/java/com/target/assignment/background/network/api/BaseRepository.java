@@ -3,8 +3,8 @@ package com.target.assignment.background.network.api;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 
-import com.target.assignment.background.network.model.IResponse;
 import com.target.assignment.background.network.model.ApiResponse;
+import com.target.assignment.background.network.model.IResponse;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

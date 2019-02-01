@@ -1,7 +1,7 @@
 package com.target.assignment.features.trendlist.repository;
 
-import com.target.assignment.background.network.api.BaseRepository;
 import com.target.assignment.background.network.NetworkClient;
+import com.target.assignment.background.network.api.BaseRepository;
 import com.target.assignment.features.trendlist.model.TrendRequest;
 import com.target.assignment.features.trendlist.model.TrendResponse;
 
@@ -24,9 +24,9 @@ public final class PullsRepository extends BaseRepository<TrendRequest, List<Tre
     }
 
     private void onComplete(Response<List<TrendResponse>> listResponse) {
-        if(listResponse.isSuccessful()) {
+        if (listResponse.isSuccessful()) {
             onSuccess(listResponse.body());
-        }else{
+        } else {
             onError(new Exception(listResponse.message()));
         }
     }

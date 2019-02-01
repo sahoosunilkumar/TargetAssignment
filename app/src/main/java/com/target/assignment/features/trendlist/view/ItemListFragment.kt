@@ -18,11 +18,13 @@ import com.target.assignment.R
 import com.target.assignment.background.network.api.Status
 import com.target.assignment.background.network.model.IResponse
 import com.target.assignment.databinding.FragmentTrendlistBinding
+import com.target.assignment.features.trenddetail.view.ItemDetailFragment
 import com.target.assignment.features.trendlist.model.TrendResponse
 import com.target.assignment.features.trendlist.viewmodel.PullsViewModel
 import com.target.uiwidget.adapter.AdapterDelegate
 import com.target.uiwidget.adapter.DatabindingAdapter
 import com.target.uiwidget.adapter.DividerItemDecorationFilter
+import com.target.uiwidget.listener.OnItemClickListener
 import com.target.uiwidget.listener.OnViewListener
 
 class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
@@ -64,6 +66,7 @@ class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
         dividerItemDecorationFilter!!.setDrawable(ContextCompat.getDrawable(mBinding!!.recyclerView.context, R.drawable.divider)!!)
         mBinding!!.recyclerView.addItemDecoration(dividerItemDecorationFilter!!)
         childAdapterDelegate.viewListener = mediaSnapViewListener
+        childAdapterDelegate.listener = repoItemClickListener
         mViewModel!!.execute(savedInstanceState)
     }
 
@@ -94,5 +97,16 @@ class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
     private val mediaSnapViewListener: OnViewListener<TrendResponse> = OnViewListener { root: View, response: TrendResponse ->
         val mediaImage: ImageView = root.findViewById(R.id.avtarIV)
         mViewModel?.loadImage(mediaImage, response.avatar)
+    }
+    private val repoItemClickListener: OnItemClickListener<TrendResponse> = OnItemClickListener {
+        launchDetailScreen(it)
+    }
+
+    private fun launchDetailScreen(response: TrendResponse?) {
+        val bundle = Bundle()
+        val fragment = ItemDetailFragment()
+        bundle.putParcelable(ItemDetailFragment.EXTRA_INFO, response)
+        fragment.arguments = bundle
+        activity?.supportFragmentManager?.beginTransaction()?.add(R.id.fragment_container, fragment, ItemDetailFragment.TAG)?.addToBackStack(ItemDetailFragment.TAG)?.commit()
     }
 }

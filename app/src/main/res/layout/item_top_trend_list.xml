@@ -20,7 +20,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/avtarIV"
-            android:layout_width="@dimen/thumbnail_image_height"
+            android:layout_width="@dimen/thumbnail_image_width"
             android:layout_height="@dimen/thumbnail_image_height"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

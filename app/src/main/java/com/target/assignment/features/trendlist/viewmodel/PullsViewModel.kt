@@ -16,7 +16,7 @@ class PullsViewModel : ViewModel(), Observer<IResponse<List<TrendResponse>>> {
     val apiResponse = MediatorLiveData<IResponse<List<TrendResponse>>>()
     private val repositoryResponse = MediatorLiveData<IResponse<List<TrendResponse>>>()
     private val repository = PullsRepository()
-    private var request: TrendRequest?=null
+    private var request: TrendRequest? = null
 
     init {
         repositoryResponse.addSource(repository.response, this)
@@ -28,7 +28,7 @@ class PullsViewModel : ViewModel(), Observer<IResponse<List<TrendResponse>>> {
     }
 
     fun execute(bundle: Bundle?) {
-        if (bundle == null){
+        if (bundle == null) {
             this.request = TrendRequest("java", "weekly")
             repository.execute(request)
         }
