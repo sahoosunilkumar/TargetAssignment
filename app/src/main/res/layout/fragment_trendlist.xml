@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.target.assignment.features.trendlist.viewmodel.PullsViewModel" />
+            type="com.target.assignment.features.trendlist.viewmodel.ItemListViewModel" />
 
         <variable
             name="inProgress"

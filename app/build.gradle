@@ -100,7 +100,6 @@ android {
 
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
-        implementation project(path: ':uiwidget')
         implementation "android.arch.lifecycle:extensions:1.1.1"
 
         implementation rootProject.ext.deps.androidSupportLibraryCardview
@@ -117,10 +116,17 @@ android {
         implementation rootProject.ext.deps.okHttp
         implementation rootProject.ext.deps.androidSupportLibraryConstraint
         implementation rootProject.ext.deps.interceptor
-
         implementation rootProject.ext.deps.multidex
         api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
         implementation rootProject.ext.deps.glide
+
+        implementation rootProject.ext.deps.dagger
+        implementation rootProject.ext.deps.daggerAndroidSupport
+        annotationProcessor rootProject.ext.deps.daggerCompiler
+        annotationProcessor rootProject.ext.deps.daggerAndroidProcessor
+        androidTestAnnotationProcessor rootProject.ext.deps.daggerCompiler
+        kapt rootProject.ext.deps.daggerCompiler
+        kapt rootProject.ext.deps.daggerAndroidProcessor
 
         //testing plugins start
         testImplementation rootProject.ext.deps.junit
@@ -136,7 +142,6 @@ android {
             exclude group: 'com.android.support', module: 'support-core-utils'
         })
         //testing plugins end
-        implementation 'javax.annotation:jsr250-api:1.0'
 
     }
 

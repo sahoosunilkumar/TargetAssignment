@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TargetAssignment.iml" filepath="$PROJECT_DIR$/TargetAssignment.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/uiwidget/uiwidget.iml" filepath="$PROJECT_DIR$/uiwidget/uiwidget.iml" />
     </modules>
   </component>
 </project>

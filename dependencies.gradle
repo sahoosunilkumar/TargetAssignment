@@ -23,6 +23,7 @@ ext {
     robolectricShadowVersion = '3.4-rc2'
     multidexVersion = '1.0.3'
     interceptorVersion = '3.10.0'
+    daggerVersion = '2.16'
 }
 
 ext.deps = [
@@ -60,6 +61,11 @@ ext.deps = [
 
         glide                   : "com.github.bumptech.glide:glide:$glideVersion",
         okHttp                  : "com.squareup.okhttp:okhttp:$okHttpVersion",
-        multidex                : "com.android.support:multidex:$multidexVersion"
+        multidex                : "com.android.support:multidex:$multidexVersion",
+
+        dagger                  : "com.google.dagger:dagger:$daggerVersion",
+        daggerAndroidSupport    : "com.google.dagger:dagger-android-support:$daggerVersion",
+        daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
+        daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$daggerVersion"
 
 ]

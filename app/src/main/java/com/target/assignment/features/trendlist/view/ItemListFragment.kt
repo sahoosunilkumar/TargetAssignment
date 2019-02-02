@@ -1,56 +1,40 @@
 package com.target.assignment.features.trendlist.view
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-
 import com.target.assignment.BR
 import com.target.assignment.R
-import com.target.assignment.background.network.api.Status
-import com.target.assignment.background.network.model.IResponse
 import com.target.assignment.databinding.FragmentTrendlistBinding
 import com.target.assignment.features.trenddetail.view.ItemDetailFragment
 import com.target.assignment.features.trendlist.model.TrendResponse
-import com.target.assignment.features.trendlist.viewmodel.PullsViewModel
-import com.target.uiwidget.adapter.AdapterDelegate
-import com.target.uiwidget.adapter.DatabindingAdapter
-import com.target.uiwidget.adapter.DividerItemDecorationFilter
-import com.target.uiwidget.listener.OnItemClickListener
-import com.target.uiwidget.listener.OnViewListener
+import com.target.assignment.features.trendlist.viewmodel.ItemListViewModel
+import com.target.assignment.networking.api.Status
+import com.target.assignment.networking.model.IResponse
+import com.target.assignment.uiwidget.BaseFragment
+import com.target.assignment.uiwidget.adapter.DatabindingAdapter
+import com.target.assignment.uiwidget.adapter.impl.AdapterDelegate
+import com.target.assignment.uiwidget.adapter.impl.DividerItemDecorationFilter
+import com.target.assignment.uiwidget.listener.OnItemClickListener
+import com.target.assignment.uiwidget.listener.OnViewListener
 
-class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
+class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBinding>(), Observer<IResponse<List<TrendResponse>>> {
+    override fun getViewModel(): Class<ItemListViewModel> {
+        return ItemListViewModel::class.java
+    }
 
-    private var mViewModel: PullsViewModel? = null
-    private var mBinding: FragmentTrendlistBinding? = null
+    override fun getLayoutRes(): Int {
+        return R.layout.fragment_trendlist
+    }
+
     private val childAdapterDelegate = AdapterDelegate(TrendResponse::class.java, R.layout.item_top_trend_list, BR.trendItem)
 
     private var adapter: DatabindingAdapter<TrendResponse>? = null
     private var dividerItemDecorationFilter: DividerItemDecorationFilter? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(PullsViewModel::class.java)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // inflate layout, bind fields and etc
-        mBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_trendlist,
-                container,
-                false)
-        // bind ViewModel
-        mBinding!!.viewModel = mViewModel
-        return mBinding!!.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,15 +43,15 @@ class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
 
     private fun init(savedInstanceState: Bundle?) {
         adapter = DatabindingAdapter(childAdapterDelegate)
-        mBinding!!.recyclerView.adapter = adapter
+        dataBinding.recyclerView.adapter = adapter
 
-        mViewModel!!.apiResponse.observe(this, this)
-        dividerItemDecorationFilter = getDivider(mBinding!!.recyclerView.context)
-        dividerItemDecorationFilter!!.setDrawable(ContextCompat.getDrawable(mBinding!!.recyclerView.context, R.drawable.divider)!!)
-        mBinding!!.recyclerView.addItemDecoration(dividerItemDecorationFilter!!)
+        viewModel.apiResponse.observe(this, this)
+        dividerItemDecorationFilter = getDivider(dataBinding.recyclerView.context)
+        dividerItemDecorationFilter!!.setDrawable(ContextCompat.getDrawable(dataBinding.recyclerView.context, R.drawable.divider)!!)
+        dataBinding.recyclerView.addItemDecoration(dividerItemDecorationFilter!!)
         childAdapterDelegate.viewListener = mediaSnapViewListener
         childAdapterDelegate.listener = repoItemClickListener
-        mViewModel!!.execute(savedInstanceState)
+        viewModel.execute(savedInstanceState)
     }
 
     private fun getDivider(context: Context): DividerItemDecorationFilter {
@@ -79,7 +63,7 @@ class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
     }
 
     override fun onChanged(response: IResponse<List<TrendResponse>>?) {
-        mBinding!!.inProgress = response!!.status == Status.IN_PROGRESS
+        dataBinding.inProgress = response!!.status == Status.IN_PROGRESS
         if (response.status == Status.ERROR) {
             showMessage(response.error.message!!)
         } else if (response.status == Status.SUCCESS) {
@@ -96,7 +80,7 @@ class ItemListFragment : Fragment(), Observer<IResponse<List<TrendResponse>>> {
 
     private val mediaSnapViewListener: OnViewListener<TrendResponse> = OnViewListener { root: View, response: TrendResponse ->
         val mediaImage: ImageView = root.findViewById(R.id.avtarIV)
-        mViewModel?.loadImage(mediaImage, response.avatar)
+        viewModel.loadImage(mediaImage, response.avatar)
     }
     private val repoItemClickListener: OnItemClickListener<TrendResponse> = OnItemClickListener {
         launchDetailScreen(it)

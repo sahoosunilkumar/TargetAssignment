@@ -1,23 +1,26 @@
 package com.target.assignment.features.home;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.target.assignment.R;
+import com.target.assignment.databinding.ActivityMainBinding;
 import com.target.assignment.features.trendlist.view.ItemListFragment;
+import com.target.assignment.uiwidget.BaseActivity;
 
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity<ActivityMainBinding> {
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(dataBinding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

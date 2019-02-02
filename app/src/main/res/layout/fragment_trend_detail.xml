@@ -8,6 +8,10 @@
             name="viewModel"
             type="com.target.assignment.features.trenddetail.viewmodel.ItemDetailViewModel" />
 
+        <variable
+            name="response"
+            type="com.target.assignment.features.trendlist.model.TrendResponse" />
+
         <import type="android.view.View" />
     </data>
 
@@ -40,15 +44,15 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.Header"
-                    android:text="@{viewModel.response.name}" />
+                    android:text="@{response.name}" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
-                    android:text="@{String.format(@string/username, viewModel.response.username)}" />
+                    android:text="@{String.format(@string/username, response.username)}" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
-                    android:text="@{String.format(@string/url, viewModel.response.url)}" />
+                    android:text="@{String.format(@string/url, response.url)}" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
@@ -63,15 +67,15 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
-                    android:text="@{String.format(@string/name, viewModel.response.repo.name)}" />
+                    android:text="@{String.format(@string/name, response.repo.name)}" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
-                    android:text="@{String.format(@string/url, viewModel.response.repo.url)}" />
+                    android:text="@{String.format(@string/url, response.repo.url)}" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/ItemText.SubHeader"
-                    android:text="@{String.format(@string/description, viewModel.response.repo.description)}" />
+                    android:text="@{String.format(@string/description, response.repo.description)}" />
 
             </LinearLayout>
 
