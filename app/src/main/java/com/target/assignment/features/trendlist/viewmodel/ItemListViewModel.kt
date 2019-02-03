@@ -5,18 +5,20 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.os.Bundle
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.target.assignment.features.trendlist.model.TrendRequest
 import com.target.assignment.features.trendlist.model.TrendResponse
-import com.target.assignment.features.trendlist.repository.PullsRepository
+import com.target.assignment.features.trendlist.repository.TrendItemsRepository
 import com.target.assignment.networking.model.IResponse
+import com.target.assignment.uiwidget.imageloader.ImageLoaderImpl
 import javax.inject.Inject
 
 class ItemListViewModel @Inject
-internal constructor(val repository: PullsRepository) : ViewModel(), Observer<IResponse<List<TrendResponse>>> {
+internal constructor(val repository: TrendItemsRepository, private val imageLoader: ImageLoaderImpl) : ViewModel(), Observer<IResponse<List<TrendResponse>>> {
     val apiResponse = MediatorLiveData<IResponse<List<TrendResponse>>>()
     private val repositoryResponse = MediatorLiveData<IResponse<List<TrendResponse>>>()
     private var request: TrendRequest? = null
+    private val language = "java"
+    private val since = "weekly"
 
     init {
         repositoryResponse.addSource(repository.response, this)
@@ -29,13 +31,12 @@ internal constructor(val repository: PullsRepository) : ViewModel(), Observer<IR
 
     fun execute(bundle: Bundle?) {
         if (bundle == null) {
-            this.request = TrendRequest("java", "weekly")
+            this.request = TrendRequest(language, since)
             repository.execute(request)
         }
     }
 
     fun loadImage(imageView: ImageView, path: String) {
-        Glide.with(imageView.context).load(path)
-                .into(imageView)
+        imageLoader.load(path, imageView)
     }
 }

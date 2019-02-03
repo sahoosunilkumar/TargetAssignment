@@ -1,7 +1,6 @@
 package com.target.assignment.uiwidget.adapter.impl
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
@@ -9,8 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
-
-import java.util.Objects
 
 
 abstract class DividerItemDecorationFilter(context: Context, orientation: Int) : RecyclerView.ItemDecoration() {

@@ -1,6 +1,5 @@
 package com.target.assignment.uiwidget.adapter;
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.databinding.ObservableList;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,15 +8,12 @@ import com.target.assignment.uiwidget.adapter.impl.AdapterUpdater;
 import com.target.assignment.uiwidget.adapter.impl.RecyclerViewUpdater;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
-
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.times;
 
@@ -35,9 +31,9 @@ public class AdapterUpdaterTest {
     ObservableList<String> observableList;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-        adapterUpdater = new AdapterUpdater<>(updater,adapterUpdateHandler);
+        adapterUpdater = new AdapterUpdater<>(updater, adapterUpdateHandler);
         willReturn(false).given(adapterUpdateHandler).post(any());
     }
 

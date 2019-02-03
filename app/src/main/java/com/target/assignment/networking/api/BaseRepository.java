@@ -9,7 +9,11 @@ import com.target.assignment.networking.model.IResponse;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-
+/**
+ * Base class for Network request
+ * @param <Request>
+ * @param <Response>
+ */
 public abstract class BaseRepository<Request, Response> {
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MediatorLiveData<IResponse<Response>> liveDataResponse = new MediatorLiveData<>();

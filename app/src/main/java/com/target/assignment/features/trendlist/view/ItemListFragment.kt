@@ -22,7 +22,8 @@ import com.target.assignment.uiwidget.adapter.impl.DividerItemDecorationFilter
 import com.target.assignment.uiwidget.listener.OnItemClickListener
 import com.target.assignment.uiwidget.listener.OnViewListener
 
-class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBinding>(), Observer<IResponse<List<TrendResponse>>> {
+class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBinding>(), Observer<IResponse<List<TrendResponse>>>, OnItemClickListener<TrendResponse>, OnViewListener<TrendResponse> {
+
     override fun getViewModel(): Class<ItemListViewModel> {
         return ItemListViewModel::class.java
     }
@@ -49,8 +50,8 @@ class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBindin
         dividerItemDecorationFilter = getDivider(dataBinding.recyclerView.context)
         dividerItemDecorationFilter!!.setDrawable(ContextCompat.getDrawable(dataBinding.recyclerView.context, R.drawable.divider)!!)
         dataBinding.recyclerView.addItemDecoration(dividerItemDecorationFilter!!)
-        childAdapterDelegate.viewListener = mediaSnapViewListener
-        childAdapterDelegate.listener = repoItemClickListener
+        childAdapterDelegate.viewListener = this
+        childAdapterDelegate.listener = this
         viewModel.execute(savedInstanceState)
     }
 
@@ -67,7 +68,7 @@ class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBindin
         if (response.status == Status.ERROR) {
             showMessage(response.error.message!!)
         } else if (response.status == Status.SUCCESS) {
-            adapter!!.addItems(response.getData())
+            adapter!!.addItems(response.data)
             if (adapter!!.itemCount == 0) {
                 showMessage(getString(R.string.empty_list))
             }
@@ -75,15 +76,7 @@ class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBindin
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
-    }
-
-    private val mediaSnapViewListener: OnViewListener<TrendResponse> = OnViewListener { root: View, response: TrendResponse ->
-        val mediaImage: ImageView = root.findViewById(R.id.avtarIV)
-        viewModel.loadImage(mediaImage, response.avatar)
-    }
-    private val repoItemClickListener: OnItemClickListener<TrendResponse> = OnItemClickListener {
-        launchDetailScreen(it)
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     private fun launchDetailScreen(response: TrendResponse?) {
@@ -92,5 +85,16 @@ class ItemListFragment : BaseFragment<ItemListViewModel, FragmentTrendlistBindin
         bundle.putParcelable(ItemDetailFragment.EXTRA_INFO, response)
         fragment.arguments = bundle
         activity?.supportFragmentManager?.beginTransaction()?.add(R.id.fragment_container, fragment, ItemDetailFragment.TAG)?.addToBackStack(ItemDetailFragment.TAG)?.commit()
+    }
+
+    override fun onBindView(root: View?, item: TrendResponse?) {
+        if(root != null && item != null) {
+            val mediaImage: ImageView = root.findViewById(R.id.avtarIV)
+            viewModel.loadImage(mediaImage, item.avatar)
+        }
+    }
+
+    override fun onItemClick(t: TrendResponse?) {
+        launchDetailScreen(t)
     }
 }

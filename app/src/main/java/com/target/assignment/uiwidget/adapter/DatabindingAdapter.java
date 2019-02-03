@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.target.assignment.uiwidget.adapter.impl.AdapterDelegate;
@@ -20,6 +18,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Simple Databinding adapter for recyclerview
+ * @param <T>
+ */
 public class DatabindingAdapter<T> extends BaseAdapter<T> {
 
     private AdapterDelegate[] adapterDelegates;
@@ -66,6 +68,11 @@ public class DatabindingAdapter<T> extends BaseAdapter<T> {
     }
 
 
+    /**
+     * retrieves view type from the item position
+     * @param position of item
+     * @return view type
+     */
     @Override
     public int getItemViewType(int position) {
         for (int i = 0; i < adapterDelegates.length; i++) {

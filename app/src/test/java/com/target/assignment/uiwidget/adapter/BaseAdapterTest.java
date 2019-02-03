@@ -6,8 +6,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.target.assignment.uiwidget.adapter.BaseAdapter;
-import com.target.assignment.uiwidget.adapter.DatabindingAdapter;
 import com.target.assignment.uiwidget.adapter.impl.RecyclerViewUpdater;
 
 import org.junit.Assert;
@@ -16,16 +14,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.robolectric.Robolectric;
-import org.robolectric.util.ReflectionHelpers;
-
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.BDDMockito.willReturn;
-import java.util.List;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 public class BaseAdapterTest {
     @Mock
@@ -73,7 +61,7 @@ public class BaseAdapterTest {
         list.add("Data");
         databindingAdapter.addItems(list);
         databindingAdapter.addItems(list);
-        Assert.assertTrue(databindingAdapter.getItemCount()>0);
+        Assert.assertTrue(databindingAdapter.getItemCount() > 0);
     }
 
     @Test
